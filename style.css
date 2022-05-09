@@ -1,0 +1,146 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	list-style: none;
+}
+
+:root {
+	--background: #202124;
+	--cell-size: 100px;
+	--mark-size: calc(var(--cell-size) * 0.9);
+}
+
+header {
+	text-align: center;
+	color: #fff;
+	font-size: 1.5em;
+	margin: 40px 0;
+}
+
+body {
+	background-color: var(--background);
+}
+
+main.end {
+	filter: blur(8px);
+	-webkit-filter: blur(8px);
+}
+
+.board {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: var(--cell-size);
+	height: var(--cell-size);
+	border: 1px solid #fff;
+	border-top: none;
+	border-right: none;
+	position: relative;
+	cursor: pointer;
+}
+
+.cell:nth-child(3n+1) {
+	border-left: none;
+}
+
+.cell:nth-child(n + 7) {
+	border-bottom: none;
+}
+
+.cell.x::after,
+.cell.x::before,
+.cell.o::before {
+	background-color: #fff;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before {
+	background-color: #3d3d3d;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.cell.x::before,
+.cell.x::after {
+	content: "";
+	width: calc(var(--mark-size)*0.15);
+	height: var(--mark-size);
+	position: absolute;
+}
+
+.board.x .cell:hover::before,
+.cell.x::before {
+	transform: rotate(45deg);
+}
+
+.board.x .cell:hover::after,
+.cell.x::after {
+	transform: rotate(-45deg);
+}
+
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after,
+.cell.o::before,
+.cell.o::after {
+	content: "";
+	border-radius: 50%;
+	position: absolute;
+}
+
+.board.o .cell:not(.x):not(.o):hover::before,
+.cell.o::before {
+	width: calc(var(--mark-size)* 0.9);
+	height: calc(var(--mark-size)* 0.9);
+}
+
+.board.o .cell:not(.x):not(.o):hover::after,
+.cell.o::after {
+	width: calc(var(--mark-size)* 0.6);
+	height: calc(var(--mark-size)* 0.6);
+	background-color: var(--background);
+}
+
+.cell.x,
+.cell.o {
+	cursor: not-allowed;
+}
+
+.game-end-message {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font: 400 1.5em "Roboto", san-serif;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+.game-end-message button {
+	background-color: var(--background);
+	color: #fff;
+	border: 1px solid #fff;
+	padding: 8px;
+	border-radius: 15px;
+	margin: 8px;
+	cursor: pointer;
+}
+
+.game-end-message button:hover {
+	filter: brightness(130%);
+}
+
+.game-end-message.show {
+	display: flex;
+}
